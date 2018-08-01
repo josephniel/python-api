@@ -1,0 +1,15 @@
+version: '2'
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    container_name: python-app-container
+    ports: 
+      # make n and outgoing ports similar for brevity
+      - ${APP_PORT}:${APP_PORT}
+    environment:
+      ENV: ${ENV}
+    network_mode: host
+    volumes:
+      - ./app:/app
