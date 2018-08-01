@@ -26,8 +26,34 @@ function app_lint {
     echo "hi"
 }
 
+function app_running {
+    if [ $(docker inspect -f '{{.State.Running}}' python-app-container) ]; then
+        return 0
+    else
+        return 1
+    fi;
+}
+
+function database_running {
+    if [ $(docker inspect -f '{{.State.Running}}' python-app-database-container) ]; then
+        return 0
+    else
+        return 1
+    fi;
+}
+
 function db_process {
-    app_start
+    if app_running -eq 1; then
+        docker start python-app-container
+    fi;
+    if database_running -eq 1; then
+        docker start python-app-database-container
+    fi;
+
+    docker exec -i python-app-container sh -c "flask db $1"
+
+    docker stop python-app-container
+    docker stop python-app-database-container
 }
 
 case $1 in
