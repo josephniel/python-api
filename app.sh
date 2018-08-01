@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 
+function app_build {
+    docker-compose build
+}
+
 function app_start {
     docker-compose up \
-        --build \
         --abort-on-container-exit \
         --remove-orphans
 }
 
 function app_stop {
     docker-compose down \
-        --rmi all \
         --remove-orphans
 }
 
@@ -34,6 +36,12 @@ function app_running {
     fi;
 }
 
+function start_app {
+    if app_running -eq 1; then
+        docker start python-app-container
+    fi
+}
+
 function database_running {
     if [ $(docker inspect -f '{{.State.Running}}' python-app-database-container) ]; then
         return 0
@@ -42,21 +50,22 @@ function database_running {
     fi;
 }
 
-function db_process {
-    if app_running -eq 1; then
-        docker start python-app-container
-    fi;
+function start_database {
     if database_running -eq 1; then
         docker start python-app-database-container
-    fi;
+    fi
+}
+
+function db_process {
+    start_app
+    start_database
 
     docker exec -i python-app-container sh -c "flask db $1"
-
-    docker stop python-app-container
-    docker stop python-app-database-container
 }
 
 case $1 in
+    "init")
+        app_build;;
     "start")
         app_start;;
     "stop")

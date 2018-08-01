@@ -2,7 +2,7 @@ class BaseConfig:
     ENV = 'testing'
     DEBUG = False
 
-    HOST = 'localhost'
+    HOST = '0.0.0.0'
     PORT = 5000
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
