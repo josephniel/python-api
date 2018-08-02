@@ -12,5 +12,11 @@ setup(
         'Flask-Migrate',
         'Flask-SQLAlchemy',
         'psycopg2',
-    ]
+    ],
+    extras_require={
+        'test': [
+            'pytest',
+            'pytest-cov',
+        ]
+    }
 )

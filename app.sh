@@ -64,7 +64,7 @@ function db_process {
 }
 
 case $1 in
-    "init")
+    "build")
         app_build;;
     "start")
         app_start;;

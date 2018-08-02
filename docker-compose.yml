@@ -3,7 +3,7 @@ services:
   app:
     build: 
       context: .
-      dockerfile: ./docker/api/Dockerfile
+      dockerfile: ./docker/api.dockerfile
     container_name: python-app-container
     ports: 
       # make host and container ports similar for brevity
@@ -22,5 +22,3 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: python_api
-    ports:
-      - "${POSTGRES_PORT}:5432"
