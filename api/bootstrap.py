@@ -9,7 +9,7 @@ from utils import import_submodules
 migrate = Migrate()
 
 
-def create_app(env: str = 'dev') -> None:
+def create_app(env: str = 'dev') -> Flask:
     app = Flask(__name__)
     env_to_conf_map = {
         'dev': 'config.development.DevelopmentConfig',

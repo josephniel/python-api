@@ -59,3 +59,6 @@ This will downgrade the version of your database to one version down. To specify
 ./app.sh db downgrade <revision_id>
 ```
 The indicated id will also be included in the downgrade. You can see more of the commands used in [Flask-Migrate](https://flask-migrate.readthedocs.io/en/latest/).
+
+## Running Unit Tests
+There is a separate docker container built when running unit tests. This is for the main application to not be mixed development and integration entities. 

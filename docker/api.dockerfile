@@ -5,8 +5,8 @@ ENV FLASK_APP "bootstrap:create_app('dev')"
 WORKDIR /app
 
 COPY ./api ./api
-COPY ./setup.py ./api/setup.py
 COPY ./migrations ./migrations
+COPY ./docker/setup.py ./api/setup.py
 
 WORKDIR /app/api
 

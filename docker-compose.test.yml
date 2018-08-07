@@ -1,0 +1,26 @@
+version: '2'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/tests.dockerfile
+    command: ./tests.sh ${POSTGRES_USER} ${POSTGRES_PASSWORD} ${POSTGRES_DATABASE}
+    container_name: messenger-tests-container
+    links:
+      - database
+    environment:
+      ENV: ${ENV}
+    volumes:
+      - ./api:/app/api
+      - ./migrations:/app/migrations
+      - ./tests:/app/tests
+      - ./docker/tests.sh:/app/tests.sh
+      - ./docker/mypy.ini:/app/api/mypy.ini
+      - ./docker/mypy.ini:/app/tests/mypy.ini
+  database:
+    container_name: messenger-tests-database-container
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+    image: postgres:9.5

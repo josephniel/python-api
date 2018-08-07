@@ -2,7 +2,7 @@ import importlib
 import pkgutil
 
 
-def import_submodules(package: str, recursive: bool = True):
+def import_submodules(package, recursive: bool = True):
     """Import all submodules of a module, recursively, including subpackages"""
     if isinstance(package, str):
         package = importlib.import_module(package)
